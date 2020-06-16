@@ -1,0 +1,115 @@
+
+  <div class="root">
+  <div class="bucket">
+    <div class="bucket-bar">
+      <p class="bucket-name">
+        <button (click)="newTodo()" class="button is-success is-small">Novo</button>
+      </p>
+    </div>
+    <div class="bucket-create-bar" *ngIf="createMode">
+      <div class="columns">
+        <div class="column is-6">
+          <input class="input" name="taskname" ngDefaultControl [(ngModel)]="selectedTodo.name" type="text" placeholder="Nome da Tarefa">
+        </div>
+        <div class="column is-4">
+          <div class="select is-fullwidth" >
+            <select name="taskbucket" ngDefaultControl [(ngModel)]="selectedTodo.bucket">
+              <option value="To Do">To Do</option>
+              <option value="Doing">Doing</option>
+              <option value="Done">Done</option>
+            </select>
+          </div>
+        </div>
+        <div class="column is-2 buttons is-fullwidth">
+          <button (click)="changeMode('create')" class="button is-danger">Cancelar</button>
+          <button (click)="save()" class="button is-primary ">Criar tarefa</button>
+        </div>
+      </div>
+    </div>
+    <div class="bucket-edit-bar" *ngIf="editMode">
+      <div class="columns">
+        <div class="column is-6">
+          <input class="input" type="text" name="taskname" ngDefaultControl [(ngModel)]="selectedTodo.name" placeholder="Nome da Tarefa">
+        </div>
+        <div class="column is-4">
+          <div class="select is-fullwidth" >
+            <select name="taskbucket" ngDefaultControl [(ngModel)]="selectedTodo.bucket">
+              <option value="To Do">To Do</option>
+              <option value="Doing">Doing</option>
+              <option value="Done">Done</option>
+            </select>
+          </div>
+        </div>
+        <div class="column is-3 buttons is-fullwidth">
+          <button (click)="changeMode('edit')" class="button is-danger">Cancelar</button>
+          <button (click)="save()" class="button is-primary">Salvar</button>
+        </div>
+      </div>
+    </div>
+    <div class="bucket-wrapper">
+      <div class="bucket-columns" cdkDropListGroup>
+        <div
+          class="bucket-column">
+          <div class="column-title">To Do</div>
+          <div
+            class="task-content"
+            cdkDropList
+            #todoList="cdkDropList"
+            [cdkDropListData]="todo"
+            (cdkDropListDropped)="drop($event)">
+            <div
+              class="task"
+              *ngFor="let item of todo"
+              (dblclick)="selected(item)"
+              cdkDrag>
+              {{ item.name }}
+              <span (click)="remove(item._id)">
+                <i class="fa fa-times"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="bucket-column">
+          <div class="column-title">Doing</div>
+          <div
+          class="task-content"
+          cdkDropList
+          #todoList="cdkDropList"
+          [cdkDropListData]="doing"
+          (cdkDropListDropped)="drop($event)">
+          <div
+            class="task"
+            *ngFor="let item of doing"
+            (dblclick)="selected(item)"
+            cdkDrag>
+            {{ item.name }}
+            <span (click)="remove(item._id)">
+              <i class="fa fa-times"></i>
+            </span>
+          </div>
+        </div>
+        </div>
+        <div class="bucket-column">
+          <div class="column-title">Done</div>
+          <div
+          class="task-content"
+          cdkDropList
+          #todoList="cdkDropList"
+          [cdkDropListData]="done"
+          (cdkDropListDropped)="drop($event)">
+          <div
+            class="task"
+            *ngFor="let item of done"
+            (dblclick)="selected(item)"
+            cdkDrag>
+            {{ item.name }}
+            <span (click)="remove(item._id)">
+              <i class="fa fa-times"></i>
+            </span>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

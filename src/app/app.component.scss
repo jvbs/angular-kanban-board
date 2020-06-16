@@ -1,0 +1,12 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.app-name {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  padding: 8px 15px;
+}
